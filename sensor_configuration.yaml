@@ -1,0 +1,48 @@
+template:
+  - sensor:
+      - name: "Battery Charge Power"
+        unit_of_measurement: "W"
+        state_class: "measurement"
+        device_class: "power"
+        state: >
+          {% set battery_voltage = states('sensor.oasis_solar_battery_voltage') | float %}
+          {% set battery_charge_current = states('sensor.oasis_solar_battery_charge_current') | float %}
+          {{ (battery_voltage * battery_charge_current) | round(0) }}
+      - name: "Battery Discharge Power"
+        unit_of_measurement: "W"
+        state_class: "measurement"
+        device_class: "power"
+        state: >
+          {% set battery_voltage = states('sensor.oasis_solar_battery_voltage') | float %}
+          {% set battery_discharge_current = states('sensor.oasis_solar_battery_discharge_current') | float %}
+          {{ (battery_voltage * battery_discharge_current) | round(0) }}
+      - name: "Grid Input Power"
+        unit_of_measurement: "W"
+        state_class: "measurement"
+        device_class: "power"
+        state: >
+          {% set grid_voltage = states('sensor.oasis_solar_grid_voltage') | float %}
+          {% set battery_charge_power = states('sensor.battery_charge_power') | int %}
+          {% set battery_discharge_power = states('sensor.battery_discharge_power') | int %}
+          {% set ac_output_active_power = states('sensor.oasis_solar_ac_output_active_power') | int %}
+          {% set pv1_input_power = states('sensor.oasis_solar_pv1_input_power') | int %}
+          {% if pv1_input_power < ac_output_active_power and grid_voltage > 1.0 %}
+            {{ ((ac_output_active_power - battery_discharge_power) - pv1_input_power + battery_charge_power) | int }}
+          {% else %}
+            0
+          {% endif %}
+      - name: "Grid Return Power"
+        unit_of_measurement: "W"
+        state_class: "measurement"
+        device_class: "power"
+        state: >
+          {% set grid_voltage = states('sensor.oasis_solar_grid_voltage') | float %}
+          {% set battery_charge_power = states('sensor.battery_charge_power') | int %}
+          {% set battery_discharge_power = states('sensor.battery_discharge_power') | int %}
+          {% set ac_output_active_power = states('sensor.oasis_solar_ac_output_active_power') | int %}
+          {% set pv1_input_power = states('sensor.oasis_solar_pv1_input_power') | int %}
+          {% if (pv1_input_power - battery_charge_power) > ac_output_active_power and grid_voltage > 1.0 %}
+            {{ (pv1_input_power - (ac_output_active_power - battery_discharge_power) - battery_charge_power) | int }}
+          {% else %}
+            0
+          {% endif %}

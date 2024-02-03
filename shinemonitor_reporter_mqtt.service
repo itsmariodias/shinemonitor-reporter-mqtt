@@ -1,0 +1,21 @@
+[Unit]
+Description=ShineMonitor Reporter MQTT Client/Daemon
+Documentation=
+After=network.target mosquitto.service network-online.target
+Wants=network-online.target
+Requires=network.target
+
+[Service]
+Type=notify
+User=daemon
+Group=daemon
+WorkingDirectory=/home/user/shinemonitor_reporter_mqtt/
+ExecStart=/usr/bin/python3 -u /home/user/shinemonitor_reporter_mqtt/publish_data.py
+StandardOutput=null
+StandardError=journal
+Environment=PYTHONUNBUFFERED=1
+Restart=always
+RestartSec=3
+
+[Install]
+WantedBy=multi-user.target
