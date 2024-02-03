@@ -464,7 +464,7 @@ if __name__ == '__main__':
             # For cases where internet is down, log the error once and shut down the sensors until online.
             except ConnectionError:
                 # TODO issue with not reconnecting on restart
-                log("Exception Found: ", traceback.format_exc())
+                log("Exception Found: " + traceback.format_exc())
                 if is_alive_timer_running():
                     with open('error_log.txt', 'a') as file:
                         formatted_time = datetime.fromtimestamp(time.time())
@@ -474,7 +474,7 @@ if __name__ == '__main__':
             # Any exceptions log and keep and retry at least 3 times before shutting down
             except Exception:
                 exception_count += 1
-                log("Exception Found: ", traceback.format_exc())
+                log("Exception Found: " + traceback.format_exc())
                 with open('error_log.txt', 'a') as file:
                     formatted_time = datetime.fromtimestamp(time.time())
                     file.write(f'{formatted_time}\t{traceback.format_exc()}\n')
