@@ -275,9 +275,9 @@ def connect_mqtt():
     return client
 
 
-def publish(topic, message):
+def publish(topic, message, retain=False):
     log('Publishing to MQTT topic "{}, Data:{}"'.format(topic, message))
-    result = mqtt_client.publish(topic, message, 1, retain=False)
+    result = mqtt_client.publish(topic, message, 1, retain=retain)
     # result: [0, 1]
     status = result[0]
     if status == 0:
@@ -412,7 +412,7 @@ def publish_discovery_topic():
     for (sensor, params) in detectors.items():
         discovery_topic = '{}/{}/{}/{}/config'.format(config.discovery_prefix, params['topic_category'],
                                                       config.sensor_name.lower(), sensor)
-        publish(discovery_topic, json.dumps(prepare_discovery_payload(sensor, params)))
+        publish(discovery_topic, json.dumps(prepare_discovery_payload(sensor, params)), retain=True)
 
 
 local_tz = get_localzone()

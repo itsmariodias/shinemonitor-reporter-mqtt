@@ -16,4 +16,4 @@ hostname = 'localhost'
 port = 1883
 discovery_prefix = 'homeassistant'
 base_topic = 'home/nodes'
-sensor_name = 'oasis-solar'
+sensor_name = 'shinemonitor-reporter'
