@@ -22,9 +22,9 @@ sudo ln -s shinemonitor_reporter_mqtt.service /etc/systemd/system/shinemonitor_r
 
 sudo systemctl daemon-reload
 
-sudo systemctl enable  shinemonitor_reporter_mqtt.service
+sudo systemctl enable shinemonitor_reporter_mqtt.service
 
-sudo systemctl start  shinemonitor_reporter_mqtt.service
+sudo systemctl start shinemonitor_reporter_mqtt.service
 
 sudo systemctl status shinemonitor_reporter_mqtt.service
 ```
