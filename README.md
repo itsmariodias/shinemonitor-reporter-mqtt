@@ -1,9 +1,9 @@
-# shinemonitor_reporter_mqtt
+# shinemonitor-reporter-mqtt
 A ShineMonitor MQTT Reporter that publishes your Solar System information to an MQTT broker. 
 The messages are configured to be automatically discovered as sensors in HomeAssistant.
 
 ## Installation
-* Enter the required information in config.py. Most of the information is obtained from the [SolarPower Android App](https://play.google.com/store/apps/details?id=wifiapp.volfw.solarpower).
+* Enter the required information in `config.py`. Most of the information is obtained from the [SolarPower Android App](https://play.google.com/store/apps/details?id=wifiapp.volfw.solarpower).
 * Test whether the script is working by running `python get_data.py --latest` (If this doesn't work, please check whether all your plant information is correct).
 * Ensure you have MQTT setup in your system. (Refer [this link](https://pimylifeup.com/raspberry-pi-mosquitto-mqtt-server/) if you're setting this up on a Raspberry Pi)
 * Install the following python packages by running the command `pip install tzlocal paho-mqtt requests`.
