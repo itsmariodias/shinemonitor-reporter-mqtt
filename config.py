@@ -17,3 +17,5 @@ port = 1883
 discovery_prefix = 'homeassistant'
 base_topic = 'home/nodes'
 sensor_name = 'shinemonitor-reporter'
+username = None
+password = None
