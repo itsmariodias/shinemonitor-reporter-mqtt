@@ -250,6 +250,11 @@ def connect_mqtt():
     print("Connecting to MQTT broker ...")
 
     client = mqtt.Client()
+
+    # Setup username and password if available
+    if config.username and config.password:
+        client.username_pw_set(config.username, config.password)
+    
     # hook up MQTT callbacks
     client.on_connect = on_connect
     client.on_disconnect = on_disconnect
